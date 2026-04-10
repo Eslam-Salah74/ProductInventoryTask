@@ -71,27 +71,6 @@ docker-compose exec app php artisan test
 ## Important Links
 - **Application URL:** [http://localhost:8000](http://localhost:8000)
 - **Swagger Documentation:** [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation)
-
----
-
-## Common Commands
-
-**Run Specific Tests:**
-```bash
-docker-compose exec app php artisan test --filter ProductTest
-```
-
-**Generate Swagger Documentation (after code changes):**
-```bash
-docker-compose exec app php artisan l5-swagger:generate
-```
-
-**Monitor Low Stock Alerts:**
-Alerts are logged in the Laravel log file when stock falls below the threshold:
-```bash
-docker-compose exec app tail -f storage/logs/laravel.log
-```
-
 ---
 
 ## API Endpoints
@@ -107,4 +86,3 @@ docker-compose exec app tail -f storage/logs/laravel.log
 | List Low Stock Products | `/api/products/low-stock` | `GET` |
 
 ---
-Developed with the help of Trae IDE AI Assistant.
