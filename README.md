@@ -1,66 +1,110 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Product Inventory Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive RESTful API for managing product inventory, built with **Laravel 11**, **Docker**, **Redis**, and **PostgreSQL**.
 
-## About Laravel
+## Features
+- **Full Product CRUD:** Create, Read, Update, and Soft Delete.
+- **Advanced Filtering & Pagination:** Filter products by name, SKU, price, and status.
+- **Stock Management:** Adjust stock quantities (increment/decrement) with low-stock alerts.
+- **Performance Optimization:** Redis caching (using tags) for search results and product details.
+- **Standardized API Responses:** Consistent JSON format with professional error handling.
+- **Automated Testing:** Feature tests covering all core operations.
+- **Swagger Documentation:** Interactive API documentation using Swagger UI.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prerequisites
+The only requirement for running this project is:
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Note:** You do NOT need PHP or Composer installed locally. Everything runs inside Docker containers.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting Started (Docker Only)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 1. Clone the Project
+```bash
+git clone https://github.com/Eslam-Salah74/ProductInventoryTask.git
+cd ProductInventoryTask
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Set Up Environment Variables
+Copy the `.env.example` file to create a new `.env` file (this file contains pre-configured Docker settings):
+```bash
+cp .env.example .env
+```
 
-## Laravel Sponsors
+### 3. Build and Start the Containers
+Run the following command to build the images and start the services. This process will automatically install all PHP dependencies (vendor folder) inside the container:
+```bash
+docker-compose up -d --build
+```
+The following services will be started:
+- **Laravel App:** (PHP-FPM) container where your code and dependencies live.
+- **Nginx:** Web server (accessible at [http://localhost:8000](http://localhost:8000)).
+- **PostgreSQL:** Database server.
+- **Redis:** Cache and queue server.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 4. Application Setup
+Once the containers are running, execute these commands in order:
 
-### Premium Partners
+**A. Generate Application Key:**
+```bash
+docker-compose exec app php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**B. Run Database Migrations and Seed Data:**
+This will create the tables and populate the database with 50 sample products.
+```bash
+docker-compose exec app php artisan migrate --seed
+```
 
-## Contributing
+**C. Run Automated Tests:**
+To ensure everything is installed and working correctly:
+```bash
+docker-compose exec app php artisan test
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Important Links
+- **Application URL:** [http://localhost:8000](http://localhost:8000)
+- **Swagger Documentation:** [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Common Commands
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Run Specific Tests:**
+```bash
+docker-compose exec app php artisan test --filter ProductTest
+```
 
-## License
+**Generate Swagger Documentation (after code changes):**
+```bash
+docker-compose exec app php artisan l5-swagger:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Monitor Low Stock Alerts:**
+Alerts are logged in the Laravel log file when stock falls below the threshold:
+```bash
+docker-compose exec app tail -f storage/logs/laravel.log
+```
+
+---
+
+## API Endpoints
+
+| Feature | Endpoint (URL) | Method |
+| :--- | :--- | :--- |
+| List All Products | `/api/products` | `GET` |
+| Get Single Product | `/api/products/{id}` | `GET` |
+| Create Product | `/api/products` | `POST` |
+| Update Product | `/api/products/{id}` | `PUT` |
+| Delete Product (Soft Delete) | `/api/products/{id}` | `DELETE` |
+| Adjust Stock | `/api/products/{id}/stock` | `POST` |
+| List Low Stock Products | `/api/products/low-stock` | `GET` |
+
+---
+Developed with the help of Trae IDE AI Assistant.
