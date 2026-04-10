@@ -194,7 +194,7 @@
           "response": []
         },
         {
-          "name": "Store Copy",
+          "name": "increment/decrement",
           "request": {
             "auth": {
               "type": "noauth"
@@ -262,7 +262,7 @@
               ]
             },
             "url": {
-              "raw": "{{base-url}}/products/cee12330-c9ec-4a22-8cd1-80ea102caaea/stock?type=decrement&quantity=5",
+              "raw": "{{base-url}}/products/cee12330-c9ec-4a22-8cd1-80ea102caaea/stock?type=decrement&quantity=20",
               "host": [
                 "{{base-url}}"
               ],
@@ -275,13 +275,11 @@
                 {
                   "key": "type",
                   "value": "decrement",
-                  "description": "increment , decrement",
-                  "type": "text"
+                  "description": "increment , decrement"
                 },
                 {
                   "key": "quantity",
-                  "value": "5",
-                  "type": "text"
+                  "value": "20"
                 }
               ]
             }

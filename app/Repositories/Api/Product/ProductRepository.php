@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Api\Product;
 
+use App\Events\LowStockAlert;
 use App\Models\Product;
 use App\Resources\Product\ProductResource;
 use App\Traits\ApiResponseTrait;
@@ -115,7 +116,9 @@ class ProductRepository implements ProductInterface
             $product->update($request->validated());
 
             Cache::tags(['products'])->flush();
-
+            if ($product->stock_quantity <= $product->low_stock_threshold) {
+                event(new LowStockAlert($product));
+            }
             return $this->isOk(__('Updated Successfully'))
                 ->setData(ProductResource::make($product))
                 ->build();
@@ -183,7 +186,9 @@ class ProductRepository implements ProductInterface
         $product->save();
 
         Cache::tags(['products'])->flush();
-
+        if ($product->stock_quantity <= $product->low_stock_threshold) {
+            event(new LowStockAlert($product));
+        }
         return $this->isOk(__('Stock Adjusted Successfully'))
             ->setData(ProductResource::make($product))
             ->build();
