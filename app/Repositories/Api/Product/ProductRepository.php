@@ -85,8 +85,14 @@ class ProductRepository implements ProductInterface
         $cacheKey = 'product_show_' . $productId;
 
         $product = Cache::tags(['products'])->remember($cacheKey, 3600, function () use ($productId) {
-            return $this->getModel()->findOrFail($productId);
+            return $this->getModel()->find($productId);
         });
+
+        if (!$product) {
+            return $this->isError(__('Product Not Found'))
+                ->setStatus(404)
+                ->build();
+        }
 
         return $this->isOk(__('Product Data'))
             ->setData(ProductResource::make($product))
@@ -98,7 +104,14 @@ class ProductRepository implements ProductInterface
     public function update($productId, $request)
     {
         try {
-            $product = $this->getModel()->findOrFail($productId);
+            $product = $this->getModel()->find($productId);
+
+            if (!$product) {
+                return $this->isError(__('Product Not Found'))
+                    ->setStatus(404)
+                    ->build();
+            }
+
             $product->update($request->validated());
 
             Cache::tags(['products'])->flush();
@@ -115,7 +128,13 @@ class ProductRepository implements ProductInterface
 
     public function destroy($productId)
     {
-        $product = $this->getModel()->findOrFail($productId);
+        $product = $this->getModel()->find($productId);
+
+        if (!$product) {
+            return $this->isError(__('Product Not Found'))
+                ->setStatus(404)
+                ->build();
+        }
 
         $product->delete();
 
@@ -127,7 +146,13 @@ class ProductRepository implements ProductInterface
 
     public function adjustStock($productId, $request)
     {
-        $product = $this->getModel()->findOrFail($productId);
+        $product = $this->getModel()->find($productId);
+
+        if (!$product) {
+            return $this->isError(__('Product Not Found'))
+                ->setStatus(404)
+                ->build();
+        }
 
         $quantity = (int) $request->quantity;
         $type = $request->type;

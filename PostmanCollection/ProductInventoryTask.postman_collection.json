@@ -1,0 +1,439 @@
+{
+  "info": {
+    "_postman_id": "7966d557-0f58-4fc1-947c-e6d2a71ab445",
+    "name": "ProductInventoryTask",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27537915"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "index",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base-url}}/products",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "test",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "sku",
+                  "value": "0",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "low-stock",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base-url}}/products/low-stock",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products",
+                "low-stock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Store",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "product-test0",
+                  "type": "text",
+                  "uuid": "c4443196-90c0-45bb-bd37-1fdea7ce4c95"
+                },
+                {
+                  "key": "sku",
+                  "value": "test-1",
+                  "type": "text",
+                  "uuid": "bb5c7eb2-6093-4a24-8901-468d721ab6b7"
+                },
+                {
+                  "key": "price",
+                  "value": "350",
+                  "type": "text",
+                  "uuid": "6f857b7e-1f4c-4bf3-83aa-7388f33425e7"
+                },
+                {
+                  "key": "stock_quantity",
+                  "value": "30",
+                  "type": "text",
+                  "uuid": "8cdda4f1-3885-47c7-9e72-1e71c5f0ed94"
+                },
+                {
+                  "key": "low_stock_threshold",
+                  "value": "10",
+                  "description": "default = 10",
+                  "type": "text",
+                  "uuid": "dae8fee6-24cf-41fa-b5c3-b29c46c8d681"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "description": "active , inactive , discontinued",
+                  "type": "text",
+                  "uuid": "b7bbd4b8-5139-43e0-963f-2dfbf1ae1e9a"
+                },
+                {
+                  "key": "description",
+                  "value": "test",
+                  "type": "text",
+                  "uuid": "73a65120-def0-40c9-91d8-6138525e12a5"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base-url}}/products",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Store Copy",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "product-test0",
+                  "type": "text",
+                  "uuid": "c4443196-90c0-45bb-bd37-1fdea7ce4c95"
+                },
+                {
+                  "key": "sku",
+                  "value": "test-1",
+                  "type": "text",
+                  "uuid": "bb5c7eb2-6093-4a24-8901-468d721ab6b7"
+                },
+                {
+                  "key": "price",
+                  "value": "350",
+                  "type": "text",
+                  "uuid": "6f857b7e-1f4c-4bf3-83aa-7388f33425e7"
+                },
+                {
+                  "key": "stock_quantity",
+                  "value": "30",
+                  "type": "text",
+                  "uuid": "8cdda4f1-3885-47c7-9e72-1e71c5f0ed94"
+                },
+                {
+                  "key": "low_stock_threshold",
+                  "value": "10",
+                  "description": "default = 10",
+                  "type": "text",
+                  "uuid": "dae8fee6-24cf-41fa-b5c3-b29c46c8d681"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "description": "active , inactive , discontinued",
+                  "type": "text",
+                  "uuid": "b7bbd4b8-5139-43e0-963f-2dfbf1ae1e9a"
+                },
+                {
+                  "key": "description",
+                  "value": "test",
+                  "type": "text",
+                  "uuid": "73a65120-def0-40c9-91d8-6138525e12a5"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base-url}}/products/cee12330-c9ec-4a22-8cd1-80ea102caaea/stock?type=decrement&quantity=5",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products",
+                "cee12330-c9ec-4a22-8cd1-80ea102caaea",
+                "stock"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "decrement",
+                  "description": "increment , decrement",
+                  "type": "text"
+                },
+                {
+                  "key": "quantity",
+                  "value": "5",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "show",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base-url}}/products/ae4ad60c-407b-4557-a89a-d9e1afdd6591",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products",
+                "ae4ad60c-407b-4557-a89a-d9e1afdd6591"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              },
+              {
+                "key": "X-Tenant-Database",
+                "value": "{{tenant_database}}",
+                "type": "text"
+              },
+              {
+                "key": "X-Tenant-ID",
+                "value": "{{tenant_id}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base-url}}/products/ae4ad60c-407b-4557-a89a-d9e1afdd6591",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products",
+                "ae4ad60c-407b-4557-a89a-d9e1afdd6591"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \r\n\"name\":\"product-test0\",\r\n\"sku\":\"test-1\",\r\n\"price\":35,\r\n\"stock_quantity\":35,\r\n\"low_stock_threshold\":10,\r\n\"status\":\"active\",\r\n\"description\":\"test\"\r\n}"
+            },
+            "url": {
+              "raw": "{{base-url}}/products/ae4ad60c-407b-4557-a89a-d9e1afdd6591",
+              "host": [
+                "{{base-url}}"
+              ],
+              "path": [
+                "products",
+                "ae4ad60c-407b-4557-a89a-d9e1afdd6591"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base-url",
+      "value": ""
+    }
+  ]
+}
