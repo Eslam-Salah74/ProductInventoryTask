@@ -6,24 +6,61 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 trait ApiResponseTrait
 {
-    public function apiResponse($data = null, $message = null, $status = 200)
-    {
-        $response = [
-            'message' => $message,
-            'status'  => $status,
-        ];
-        if ($data instanceof LengthAwarePaginator) {
-            $response['data'] = $data->items();
-            $response['meta'] = [
-                'current_page' => $data->currentPage(),
-                'last_page'    => $data->lastPage(),
-                'per_page'     => $data->perPage(),
-                'total'        => $data->total(),
-            ];
-        } else {
-            $response['data'] = $data;
-        }
+    protected $response = [
+        'status' => true,
+        'message' => '',
+        'data' => null,
+        'code' => 200,
+    ];
 
-        return response()->json($response, $status);
+    public function isOk($message = '')
+    {
+        $this->response['status'] = true;
+        $this->response['message'] = $message;
+        $this->response['code'] = 200;
+        return $this;
+    }
+
+    public function isError($message = '')
+    {
+        $this->response['status'] = false;
+        $this->response['message'] = $message;
+        $this->response['code'] = 400;
+        return $this;
+    }
+
+    public function setData($data)
+    {
+        $this->response['data'] = $data;
+        return $this;
+    }
+
+    public function setStatus($code)
+    {
+        $this->response['code'] = $code;
+        return $this;
+    }
+
+    public function build()
+    {
+        return response()->json([
+            'status' => $this->response['status'],
+            'message' => $this->response['message'],
+            'data' => $this->response['data'],
+        ], $this->response['code']);
+    }
+
+    public function api_model_set_paginate($resource, $data)
+    {
+        return [
+            'items' => $resource,
+            'pagination' => [
+                'total' => $data->total(),
+                'count' => $data->count(),
+                'per_page' => $data->perPage(),
+                'current_page' => $data->currentPage(),
+                'total_pages' => $data->lastPage(),
+            ]
+        ];
     }
 }
